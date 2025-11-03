@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>💌 Para Você</title>
+  <meta name="description" content="Um cantinho feito com carinho, só para você.">
+  <meta property="og:title" content="💌 Para Você">
+  <meta property="og:description" content="Um cantinho feito com carinho, só para você.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/capa.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
+      --card:#ffffff; --txt:#1f2937; --accent:#ef476f; --accent2:#ffd166;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--txt); padding: 24px;
+    }
+    .card{
+      width:100%; max-width: 780px; background: var(--card); border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25); overflow:hidden; position: relative;
+    }
+    .hero{
+      background: radial-gradient(1200px 400px at 10% -10%, rgba(239,71,111,.15), transparent 60%),
+                  radial-gradient(900px 300px at 110% 0%, rgba(255,209,102,.18), transparent 60%);
+      padding: 48px 28px 10px;
+      text-align:center;
+    }
+    h1{ font-size: clamp(28px, 4vw, 44px); line-height: 1.15; letter-spacing: .2px; }
+    p.lead{ margin-top: 14px; font-size: clamp(16px, 2.4vw, 18px); color:#4b5563; }
+    .cta{
+      display:inline-flex; gap:10px; align-items:center; justify-content:center;
+      margin: 28px auto 36px; padding: 14px 22px; font-weight:700;
+      color:white; background: linear-gradient(90deg, var(--accent), #f78ca0);
+      border:none; border-radius: 999px; cursor:pointer; transition: transform .15s ease, box-shadow .2s ease;
+      box-shadow: 0 10px 18px rgba(239,71,111,.35);
+    }
+    .cta:hover{ transform: translateY(-1px); box-shadow: 0 16px 26px rgba(239,71,111,.45); }
+    .cta:active{ transform: translateY(0); }
+    .footer{ padding: 14px 22px 26px; text-align:center; font-size: 13px; color:#6b7280; }
+    .tag{ display:inline-block; font-size:12px; color:#6b7280; background:#f3f4f6; padding:6px 10px; border-radius:999px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="hero">
+      <span class="tag">feito com carinho</span>
+      <h1>Oi, meu amor. <br>Fiz pra você✨</h1>
+      <p class="lead">Te amo minha esquentadinha.</p>
+      <button class="cta" onclick="ir()">Abrir surpresa 💌</button>
+    </section>
+    <div class="footer">© 2025 • Feito por mim, para você</div>
+  </main>
+  <script>
+    function ir(){ window.location.href = "nossa.html"; }
+  </script>
+</body>
+</html>

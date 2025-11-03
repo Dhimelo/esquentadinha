@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nosso Cantinho</title>
+  <meta name="description" content="Uma lembrança nossa, uma música e palavras que ficam." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+
+    /* — Hearts — */
+.hearts {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 9999;
+}
+.heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 18px;           /* tamanho base; variaremos por JS */
+  will-change: transform, opacity;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: .9; }
+  100% { transform: translateY(-110vh) translateX(var(--drift, 0)) scale(1.1);
+         opacity: 0; }
+}
+    
+    :root{
+      --bg:#0b1020; --paper:#ffffff; --muted:#6b7280; --ink:#111827;
+      --ring:#8ecae6; --brand:#ef476f;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(900px 360px at -10% -10%, rgba(142,202,230,.16), transparent 60%),
+        radial-gradient(800px 300px at 110% 0%, rgba(142,202,230,.12), transparent 60%),
+        linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      display:flex; align-items:center; justify-content:center;
+      padding:clamp(16px, 4vw, 28px);
+    }
+    .wrap{ width:100%; max-width: 1000px; display:grid; gap:clamp(14px, 3vw, 22px); grid-template-columns: 1.1fr 1fr; }
+    .card{
+      background: var(--paper);
+      border-radius: 16px;
+      padding: clamp(14px, 3vw, 18px);
+      box-shadow: 0 16px 48px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    /* FOTO */
+    .foto{ display:flex; align-items:center; justify-content:center; aspect-ratio: 4 / 3; overflow:hidden; border-radius: 14px; background:#f3f4f6; }
+    .foto img{ width:100%; height:100%; object-fit:cover; }
+    .btns{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px 16px; border-radius: 999px; border:1px solid #e5e7eb; background:#fff; cursor:pointer;
+      font-weight:700; color:#1f2937; transition: box-shadow .2s ease, transform .15s ease;
+      text-decoration:none; font-size: clamp(14px, 2.8vw, 15px);
+      min-height:44px;
+    }
+    .btn:hover{ box-shadow: 0 10px 16px rgba(0,0,0,.12); transform: translateY(-1px); }
+    /* VÍDEO / FALLBACK */
+    .media{ display:grid; gap:12px; }
+    .yt{
+      position:relative; border-radius:14px; overflow:hidden;
+      aspect-ratio: 16 / 9; background:#0b1320;
+    }
+    .yt iframe{
+      position:absolute; inset:0; width:100%; height:100%; border:0;
+    }
+    .fallback{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      background:#0b1320; color:white; text-align:center; padding:16px;
+    }
+    .fallback-inner{
+      max-width: 560px; width:100%;
+      display:flex; flex-direction:column; align-items:center; gap:12px;
+    }
+    .thumb{
+      width:100%; border-radius:12px; overflow:hidden; aspect-ratio:16/9;
+      background:#111827; display:block;
+    }
+    .open-yt{ background: linear-gradient(90deg, var(--brand), #f78ca0); color:white; border:none; }
+    .open-yt:hover{ box-shadow: 0 14px 20px rgba(239,71,111,.35); }
+    /* TEXTO */
+    .quote{ font-size: clamp(16px, 3.2vw, 18px); line-height:1.65; color:var(--ink); }
+    .author{ margin-top:8px; color:var(--muted); font-size: clamp(13px, 2.8vw, 14px); }
+    /* HEADER */
+    header{ position: fixed; top: 10px; left: 12px; right: 12px; display:flex; justify-content:space-between; align-items:center; }
+    .back{ text-decoration:none; font-size:14px; color:#e2e8f0; opacity:.9; padding:8px 10px }
+    /* MOBILE */
+    @media (max-width: 860px){
+      .wrap{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="back" href="index.html">← voltar</a>
+    <div class="hearts" id="hearts"></div>
+  </header>
+
+  <main class="wrap">
+    <!-- ESQUERDA: FOTO -->
+    <section class="card">
+      <div class="foto">
+        <!-- Troque o arquivo abaixo por uma foto PNG de vocês -->
+        <img src="assets/foto.png" alt="Nossa foto (PNG)" onerror="this.src='assets/placeholder.png'">
+      </div>
+      <div class="btns">
+        <a class="btn" href="assets/foto.png" download>Baixar a foto</a>
+        <a class="btn" href="index.html">Voltar ao início</a>
+      </div>
+    </section>
+
+   <!-- DIREITA: VÍDEO + CITAÇÃO -->
+<section class="card media">
+  <div class="yt" id="playerBox" data-yt="" data-fallback="x47TgeRJtH0">
+    <!-- Player embutido (usa data-yt quando disponível) -->
+    <iframe id="player" title="The Neighbourhood - Reflections"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+  </div>
+
+  <!-- BOTÃO FORA DO PLAYER (sempre visível quando estiver no fallback) -->
+  <div id="fallbackCta" style="display:none; margin-top:8px; text-align:center;">
+    <a id="openYouTube" class="btn open-yt" target="_blank" rel="noopener noreferrer"
+       style="background:linear-gradient(90deg,#ef476f,#f78ca0);color:#fff;border:none;min-width:240px;">
+      Abrir no YouTube ▶
+    </a>
+  </div>
+
+  <div>
+    <p class="quote">
+      “Ela caminha em beleza, como a noite
+De climas sem nuvens e céus estrelados;
+E tudo o que há de melhor no escuro e no claro
+Se une em seu semblante e em seus olhos;
+Assim suavizado por aquela luz terna
+Que o céu nega ao dia vistoso.”
+    </p>
+    <div class="author">— <strong>Lord Byron</strong>, <em>She Walks in Beauty</em> (1814) — Domínio público</div>
+  </div>
+</section>
+
+<script>
+
+
+
+
+  // 1) Se vier ?v=ID na URL, usa esse ID.
+  // 2) Se "data-yt" tiver um ID liberado, usa ele.
+  // 3) Se não houver ID liberado, mostra o botão "Abrir no YouTube" com o ID fallback (sua música).
+  (function(){
+    const box = document.getElementById('playerBox');
+    const iframe = document.getElementById('player');
+    const ctaWrap = document.getElementById('fallbackCta');
+    const openYT = document.getElementById('openYouTube');
+
+    const urlV = new URLSearchParams(location.search).get('v');
+    const preferred = urlV || box.dataset.yt || "";   // coloque aqui um upload COM embed liberado quando tiver
+    const fallbackId = box.dataset.fallback || "x47TgeRJtH0"; // sua música
+
+    function setIframe(id){
+      iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(id);
+    }
+    function showButton(id){
+      openYT.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(id);
+      ctaWrap.style.display = "block";
+      // mostra uma thumb dentro do próprio player para ficar bonito
+      box.style.background = `center/cover no-repeat url(https://i.ytimg.com/vi/${id}/hqdefault.jpg), #0b1320`;
+    }
+
+    if (preferred) {
+      // tenta embutir (só funciona se o upload permitir)
+      setIframe(preferred);
+      // se esse ID for o bloqueado conhecido, já cai para o botão
+      if (preferred === "x47TgeRJtH0") {
+        iframe.removeAttribute('src');
+        showButton(fallbackId);
+      }
+    } else {
+      // sem ID liberado -> mostra botão direto
+      showButton(fallbackId);
+    }
+  })();
+  // lança corações por N ms ao carregar a página
+  (function launchHeartsOnLoad(){
+    const DURATION = 4000;   // duração do show (ms)
+    const INT = 80;          // intervalo entre corações (ms)
+    const MAX = Math.ceil(DURATION / INT);
+    const COLORS = ["#ff5d8f","#ff7aa2","#ff9bb8","#ffb7cc","#ffd0de"];
+    const hearts = document.getElementById('hearts');
+
+    let i = 0;
+    const timer = setInterval(() => {
+      i++;
+      spawnHeart();
+      if (i >= MAX) clearInterval(timer);
+    }, INT);
+
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = '❤';
+      // posição e variações
+      const left = Math.random() * 100;         // 0 a 100 vw
+      const size = 14 + Math.random() * 22;     // 14–36 px
+      const dur  = 2.8 + Math.random() * 1.8;   // 2.8–4.6 s
+      const drift = (Math.random() * 60 - 30) + 'px'; // leve deriva
+
+      h.style.left = left + 'vw';
+      h.style.fontSize = size + 'px';
+      h.style.color = COLORS[(Math.random()*COLORS.length)|0];
+      h.style.setProperty('--drift', drift);
+      h.style.animationDuration = dur + 's';
+
+      hearts.appendChild(h);
+      // remove do DOM depois da animação
+      setTimeout(() => h.remove(), dur * 1000);
+    }
+  })();
+</script>
+</body>
+</html>
